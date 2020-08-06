@@ -2,9 +2,6 @@
 
 from odoo import api, models, fields
 
-import logging
-_logger = logging.getLogger(__name__)
-
 class SaleProductConfigurator(models.TransientModel):
     _inherit = 'sale.product.configurator'
 
@@ -14,7 +11,6 @@ class SaleProductConfigurator(models.TransientModel):
 
     @api.depends('partner_id')
     def _compute_default_combination(self):
-        _logger.warning('DAMIEN ENTER _compute_default_combination')
         default_product_template_attribute_value_ids = self.product_template_id.valid_product_template_attribute_line_ids.product_template_value_ids.filtered(
             lambda v: v.product_tmpl_id == self.product_template_id and v.product_attribute_value_id in self.partner_id.default_product_attribute_value_ids
         )
